@@ -774,6 +774,22 @@ for (const look of looks) test(`a code block ${look.name} draws its frame and fi
   await ui.unmount()
 })
 
+for (const surface of SURFACES) test(`a copy button stays primary by default on ${surface}`, async $ => {
+  const plain = await $.ui.mount({ ...draw(CODE), surface })
+  const bright = await plain.find({ key: 'copy0' })
+  expect(bright?.props.variant).toBe('primary')
+  expect(bright?.props.dimColor).toBe(undefined)
+  await plain.unmount()
+})
+
+for (const surface of SURFACES) test(`copyButtonDim on draws a copy button dim on ${surface}`, { options: { copyButtonDim: true } }, async $ => {
+  const ui = await $.ui.mount({ ...draw(CODE), surface })
+  const button = await ui.find({ key: 'copy0' })
+  expect(button?.props.variant).toBe('secondary')
+  expect(button?.props.dimColor).toBe(true)
+  await ui.unmount()
+})
+
 test('a code block frame takes the rule color', { options: { codeFrame: true, ruleColor: '#654321', replyStyle: 'off' } }, async $ => {
   const ui = await $.ui.mount({ ...draw(CODE), surface: 'terminal' })
   expect((await ui.find({ key: 'b0' }))?.props.borderColor).toBe('#654321')
