@@ -409,6 +409,19 @@
       "default": "card",
       "options": ["card", "full", "marks", "bar"]
     },
+    "codeStyle": {
+      "type": "string",
+      "title": "Code block style",
+      "description": "How fenced code blocks draw. plain: no frame, so selecting a block with the mouse copies only the code. framed: a rounded box, whose characters land in a mouse selection; the copy button leaves them out.",
+      "default": "plain",
+      "options": ["plain", "framed"]
+    },
+    "codeFillColor": {
+      "type": "string",
+      "title": "Code block fill",
+      "description": "Background of code blocks, with any codeStyle. Hex, rgb(), ansi256() or a name. Empty draws no background.",
+      "default": ""
+    },
     "pieStyle": {
       "type": "string",
       "title": "Pie style",

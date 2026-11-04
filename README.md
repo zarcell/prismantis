@@ -72,7 +72,7 @@ prismantis also runs in OpenCode 2.2.5 and later, where it draws figure blocks i
 
 | Feature | What you get |
 | --- | --- |
-| [Themes](#themes) | `/prismantis theme <name>` switches on the spot. 17 themes and 34 color slots you can override |
+| [Themes](#themes) | `/prismantis theme <name>` switches on the spot. 17 themes and 35 color slots you can override |
 | [Tables](#tables) | colored headers, rules, column alignment, colored numbers, sized to the terminal |
 | [Code](#code) | a language header and copy button, Prism highlighting in two dozen languages, shell lines colored like a prompt |
 | [Diagrams and charts](#diagrams-and-charts) | flowcharts, sequence, state, class and ER diagrams, bar and line charts, one color per box, participant and bar |
@@ -114,7 +114,7 @@ Header cells take the `tableHeader` color, and the default `box` style puts a do
 
 ![Code fold: plain Claude Code on the left, prismantis numbering and folding a 45 line block on the right](docs/compare/code-fold.png)
 
-Each code block gets a header row: the language on the left, a copy button on the right. The code sits indented below with no frame, so selecting it with the mouse copies only the code.
+Each code block gets a header row: the language on the left, a copy button on the right. The code sits indented below with no frame, so selecting it with the mouse copies only the code. `codeStyle: framed` adds a rounded box, and `codeFillColor` adds a background.
 
 - **Prism** highlights JavaScript, TypeScript, JSX/TSX, Python, Go, Rust, Java, Kotlin, Swift, C, C++, C#, Ruby, JSON, YAML, TOML, SQL, HTML, CSS, Dockerfile, HCL, Lua, PHP and diff.
 - **Shell** blocks (`bash`, `sh`, `zsh`, `fish`, `powershell`, unlabeled) color the command word, `--flags`, quoted strings and `# comments`, and restart after `|`, `&&` and `;`.
@@ -394,6 +394,7 @@ Options sit under `options`, keyed by the plugin's install name. Project setting
 | `rtl` | `auto`, a terminal (`warp`, `kitty`, `apple-terminal`, `iterm`, `ghostty`, `wezterm`, `vscode`, `alacritty`, `windows-terminal`, `gnome`, `konsole`), `off` | `auto` |
 | `mermaid` | `true`, `false` | `true` |
 | `mermaidAscii` | `true`, `false` | `false` |
+| `codeStyle` | `plain` (no frame), `framed` (rounded box) | `plain` |
 | `pieStyle` | `round` (a circle with a legend), `bars` (one bar per slice) | `round` |
 | `latex` | `true`, `false` | `false` |
 | `<token>Color` | any color, see below | theme |
@@ -408,6 +409,7 @@ A color is hex (`#a6e3a1`, `#fc0`), `rgb(166,227,161)`, `ansi256(114)` or a name
 | `emphasis` | *italic* text, variables, attribute names |
 | `inlineCode` | `inline code` |
 | `codeText` | code block text |
+| `codeFill` | the fill behind code blocks (none by default) |
 | `codeCommand` | shell commands, functions, class names, keys |
 | `codeFlag` | `--flags`, keywords, failures |
 | `codeString` | strings |
