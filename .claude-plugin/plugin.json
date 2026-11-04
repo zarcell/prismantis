@@ -409,17 +409,22 @@
       "default": "card",
       "options": ["card", "full", "marks", "bar"]
     },
-    "codeStyle": {
+    "codeFrame": {
+      "type": "boolean",
+      "title": "Code block frame",
+      "description": "Draw a rounded box around code blocks. Its characters land in a mouse selection; the copy button leaves them out.",
+      "default": false
+    },
+    "codeBorderColor": {
       "type": "string",
-      "title": "Code block style",
-      "description": "How fenced code blocks draw. plain: no frame, so selecting a block with the mouse copies only the code. framed: a rounded box, whose characters land in a mouse selection; the copy button leaves them out.",
-      "default": "plain",
-      "options": ["plain", "framed"]
+      "title": "Code block frame color",
+      "description": "Color of the frame around code blocks with codeFrame on. Hex, rgb(), ansi256() or a name. Empty uses the rule color.",
+      "default": ""
     },
     "codeFillColor": {
       "type": "string",
       "title": "Code block fill",
-      "description": "Background of code blocks, with any codeStyle. Hex, rgb(), ansi256() or a name. Empty draws no background.",
+      "description": "Background of code blocks. Hex, rgb(), ansi256() or a name. Empty draws no background.",
       "default": ""
     },
     "pieStyle": {

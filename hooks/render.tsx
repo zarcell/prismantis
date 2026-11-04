@@ -625,11 +625,11 @@ const codeBody = (el: ElementTable, style: Style, rows: RenderElement[], gutter:
 }
 
 const codeShell = (style: Style): { props: { borderStyle?: 'round'; borderColor?: string; backgroundColor?: string; paddingX?: number }; width: number } => {
-  const framed = style.codeStyle === 'framed'
+  const framed = style.codeFrame
   const fill = style.theme.codeFill
   if (style.nativeCode || (!framed && !fill)) return { props: {}, width: 0 }
   return {
-    props: { paddingX: 1, ...(framed ? { borderStyle: 'round' as const, borderColor: style.theme.rule } : {}), ...(fill ? { backgroundColor: fill } : {}) },
+    props: { paddingX: 1, ...(framed ? { borderStyle: 'round' as const, borderColor: style.theme.codeBorder ?? style.theme.rule } : {}), ...(fill ? { backgroundColor: fill } : {}) },
     width: framed ? 4 : 2,
   }
 }

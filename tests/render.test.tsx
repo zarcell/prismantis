@@ -759,14 +759,13 @@ test('a tinted translation is drawn in its color', async $ => {
 const CODE = '```ts\nconst a = 1\n```'
 
 const looks = [
-  { name: 'plain', options: { codeStyle: 'plain' }, border: undefined, fill: undefined, padding: undefined },
-  { name: 'framed', options: { codeStyle: 'framed' }, border: 'round', fill: undefined, padding: 1 },
-  { name: 'plain with a fill', options: { codeStyle: 'plain', codeFillColor: '#1c2233' }, border: undefined, fill: '#1c2233', padding: 1 },
-  { name: 'framed with a fill', options: { codeStyle: 'framed', codeFillColor: '#1c2233' }, border: 'round', fill: '#1c2233', padding: 1 },
-  { name: 'an unknown codeStyle', options: { codeStyle: 'card' }, border: undefined, fill: undefined, padding: undefined },
+  { name: 'by default', options: {}, border: undefined, fill: undefined, padding: undefined },
+  { name: 'with codeFrame', options: { codeFrame: true }, border: 'round', fill: undefined, padding: 1 },
+  { name: 'with codeFillColor', options: { codeFillColor: '#1c2233' }, border: undefined, fill: '#1c2233', padding: 1 },
+  { name: 'with codeFrame and codeFillColor', options: { codeFrame: true, codeFillColor: '#1c2233' }, border: 'round', fill: '#1c2233', padding: 1 },
 ] as const
 
-for (const look of looks) test(`${look.name} draws a code block with its frame and fill`, { options: { ...look.options, replyStyle: 'off' } }, async $ => {
+for (const look of looks) test(`a code block ${look.name} draws its frame and fill`, { options: { ...look.options, replyStyle: 'off' } }, async $ => {
   const ui = await $.ui.mount({ ...draw(CODE), surface: 'terminal' })
   const block = await ui.find({ key: 'b0' })
   expect(block?.props.borderStyle).toBe(look.border)
@@ -775,7 +774,19 @@ for (const look of looks) test(`${look.name} draws a code block with its frame a
   await ui.unmount()
 })
 
-test('a framed code block with hover buttons stays wide enough for its head inside the frame', { options: { codeStyle: 'framed', copyButtonStyle: 'hover', replyStyle: 'off' } }, async $ => {
+test('a code block frame takes the rule color', { options: { codeFrame: true, ruleColor: '#654321', replyStyle: 'off' } }, async $ => {
+  const ui = await $.ui.mount({ ...draw(CODE), surface: 'terminal' })
+  expect((await ui.find({ key: 'b0' }))?.props.borderColor).toBe('#654321')
+  await ui.unmount()
+})
+
+test('codeBorderColor colors a code block frame apart from the rule color', { options: { codeFrame: true, ruleColor: '#654321', codeBorderColor: '#123456', replyStyle: 'off' } }, async $ => {
+  const ui = await $.ui.mount({ ...draw(CODE), surface: 'terminal' })
+  expect((await ui.find({ key: 'b0' }))?.props.borderColor).toBe('#123456')
+  await ui.unmount()
+})
+
+test('a framed code block with hover buttons stays wide enough for its head inside the frame', { options: { codeFrame: true, copyButtonStyle: 'hover', replyStyle: 'off' } }, async $ => {
   const ui = await $.ui.mount({ ...draw('```\nx\n```'), surface: 'terminal' })
   expect((await ui.find({ key: 'b0' }))?.props.minWidth).toBe('── code [ ⧉ copy ]'.length + 4)
   await ui.unmount()
